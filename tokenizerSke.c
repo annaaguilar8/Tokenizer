@@ -9,7 +9,7 @@
    previously chosen by the user.
    Zero terminators are not printable (therefore false) */
 bool delim_character(char c, char delim){
-   // checking id char is delim and not null character (case to look for exnd chars when going char by char)
+   // checking if char is delim and not null character (case to look for end chars when going char by char)
    if (c == delim && c != '\0'){
         return true;
    }
@@ -32,8 +32,6 @@ bool non_delim_character(char c, char delim){
 char *word_start(char* str,char delim){
     //variable to iterate through string
     int i = 0;
-    
-    //weve started with a non delimiter char, we must go to the next to check for delimiter char
    
 
     //Search through string, if non-delimieter char is found, return its address
@@ -48,6 +46,8 @@ char *word_start(char* str,char delim){
 /* Returns a pointer to the first delimiter character of the zero
    terminated string*/
 char *end_word(char* str,char delim){
+   //using word start here to help us with count tokens method
+   //finding the start of the word to help is iterate using out non delim char method
    str = word_start(str, delim);
    int i = 0;
 
@@ -65,9 +65,13 @@ char *end_word(char* str,char delim){
 int count_tokens(char* str,char delim){
     int numTokens = 0;
 
+   //starting from the start or end of previous word
+   //end word method will already find the start of the word, so by recalling end word method, it will iterate through each word
     while(str != end_word(str, delim)){
       str = end_word(str, delim);
-      numTokens++;
+      if(str != NULL){
+         numTokens++;
+      }
    }
    return numTokens;
 }
@@ -138,9 +142,21 @@ void print_all_tokens(char** tokens){
 }
 
 int main(){
-    char str[] = "hello,world";
-    char delim = ',';
+   //  Testing
+   //  char str[] = "hello,world";
+   //  char delim = ',';
 
-    print_all_tokens(tokenize(str,delim));
+   //  print_all_tokens(tokenize(str,delim));
+
+    char userString[20];
+    char delim;
+
+    //take user input
+    printf("Please enter the delimiter char..\n");
+    scanf("%c", &delim); 
+    printf("Please enter the input string..\n");
+    scanf("%s",userString); 
+
+    print_all_tokens(tokenize(userString,delim));
 
 }
