@@ -1,3 +1,6 @@
+//Anna Aguilar 80669897
+//Lab 1 Tokenizer
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
